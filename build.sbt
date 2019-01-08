@@ -1,6 +1,9 @@
 name := "adb"
 description := "Amazing components & design language in Scala.js"
 
+val targetProjects = Seq(`adb-web-document`)
+compile := ((compile in Compile).dependsOn(targetProjects.map(p => compile in Compile in p): _*)).value
+
 lazy val commonSettings = Seq(
   organization := "ant-design-binding",
   version := "0.1.0",
@@ -11,7 +14,6 @@ lazy val commonSettings = Seq(
 )
 
 lazy val adb = (project in file("."))
-  .dependsOn(`adb-component`)
   .settings(commonSettings: _*)
   .settings(
     (resources in Compile) += {
@@ -19,6 +21,7 @@ lazy val adb = (project in file("."))
       (artifactPath in(`adb-component`, Compile, fullOptJS)).value
     }
   )
+
 
 lazy val `adb-component` = (project in file("adb-component"))
   .configure(_.enablePlugins(ScalaJSPlugin))
@@ -29,3 +32,9 @@ lazy val `adb-component` = (project in file("adb-component"))
       "com.thoughtworks.binding" %%% "futurebinding" % "11.6.0"
     )
   )
+
+lazy val `adb-web-document` = (project in file("adb-web-document"))
+  .dependsOn(`adb-component`)
+  .configure(_.enablePlugins(ScalaJSPlugin))
+  .settings(commonSettings: _*)
+
