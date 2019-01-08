@@ -1,0 +1,8 @@
+# intellij IDEA
+/.idea
+/.idea_modules
+# mill
+/out
+# sbt
+target
+/project/project
