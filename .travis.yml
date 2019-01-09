@@ -13,7 +13,7 @@ deploy:
   on:
     branch: master
   fqdn: ant-design-binding.org
-  repo: https://github.com/ant-design-binding/ant-design-binding.github.io.git
+  repo: https://github.com/ant-design-binding/ant-design-binding.github.io
   target-branch: master
   local-dir: target/web-document-assets
   keep-history: true
