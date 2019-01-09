@@ -6,6 +6,9 @@
 ## Project state
 Currently under early development
 
+## Document | Getting Started
+[Please see the document here](https://ant-design-binding.org/).
+
 ## Links
 This project is focusing to implementes components that fits Ant Design principles with Binding.scala.
 
