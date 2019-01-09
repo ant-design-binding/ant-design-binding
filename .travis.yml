@@ -1,5 +1,19 @@
 language: scala
 scala:
   - 2.11.12
+cache: npm
 script:
+  - npm install
   - sbt ++$TRAVIS_SCALA_VERSION adb-component/test
+  - sbt adb-web-document/copyWebDocumentAssets
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on:
+    branch: master
+  fqdn: ant-design-binding.org
+  repo: https://github.com/ant-design-binding/ant-design-binding.github.io.git
+  target-branch: master
+  local-dir: target/web-document-assets
+  keep-history: true
