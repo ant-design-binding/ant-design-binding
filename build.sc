@@ -25,3 +25,27 @@ object `adb-component` extends CommonScalaJsModule {
 object `adb-web-document` extends CommonScalaJsModule {
   override def moduleDeps = Seq(`adb-component`)
 }
+
+def copyWebDocumentAssets = T {
+  val ctx = implicitly[mill.util.Ctx]
+  os.remove.all(ctx.dest)
+  os.makeDir.all(ctx.dest)
+  val dest = ctx.dest
+
+  val fullOptJsPath = `adb-web-document`.fullOpt().path
+  os.copy(fullOptJsPath, dest / "adb-web-document-opt.js")
+  println(fullOptJsPath, dest / "adb-web-document-opt.js")
+
+  val resourcePaths = `adb-web-document`.resources().map(_.path)
+  assert(resourcePaths.forall(os.exists(_)))
+  for {
+    p <- resourcePaths
+    (file, mapping) <-
+      if (os.isFile(p)) Iterator(p -> os.rel / p.last)
+      else os.walk(p).filterNot(os.isDir).map(sub =>
+        if (os.isFile(sub)) sub -> sub.relativeTo(p) else throw new RuntimeException(s"Found broken file: $sub (may be broken links?)")).sorted
+  } {
+    os.copy(file, dest / mapping)
+  }
+}
+
