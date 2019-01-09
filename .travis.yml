@@ -17,3 +17,4 @@ deploy:
   target-branch: master
   local-dir: target/web-document-assets
   keep-history: true
+  verbose: true
