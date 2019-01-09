@@ -1,8 +1,11 @@
+import java.io.File
+import java.nio.file.Paths
+
 name := "adb"
 description := "Amazing components & design language in Scala.js"
 
 val targetProjects = Seq(`adb-web-document`)
-compile := ((compile in Compile).dependsOn(targetProjects.map(p => compile in Compile in p): _*)).value
+compile := (compile in Compile).dependsOn(targetProjects.map(p => compile in Compile in p): _*).value
 
 lazy val commonSettings = Seq(
   organization := "ant-design-binding",
@@ -37,4 +40,18 @@ lazy val `adb-web-document` = (project in file("adb-web-document"))
   .dependsOn(`adb-component`)
   .configure(_.enablePlugins(ScalaJSPlugin))
   .settings(commonSettings: _*)
+  .settings(
+    `copy-web-document-assets` := {
+      val resourceFiles = (resources in Compile).value.filter(!_.isDirectory)
+      val fullOptJsFile = (fullOptJS in Compile).value.data
+      for {
+        file <- fullOptJsFile +: resourceFiles
+      } {
+        IO.copyFile(file, assetsFile.resolve(file.getName).toFile)
+      }
+    },
+    `copy-web-document-assets` := (`copy-web-document-assets` dependsOn (fullOptJS in Compile)).value
+  )
 
+lazy val assetsFile = Paths.get("target", "web-document-assets")
+lazy val `copy-web-document-assets` = taskKey[Unit]("copy files in resources & fullOptJs result together into $assetsFile")
