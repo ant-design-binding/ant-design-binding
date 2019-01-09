@@ -6,3 +6,5 @@
 # sbt
 target
 /project/project
+# npm ref packages
+/node_modules
