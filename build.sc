@@ -34,7 +34,6 @@ def copyWebDocumentAssets = T {
 
   val fullOptJsPath = `adb-web-document`.fullOpt().path
   os.copy(fullOptJsPath, dest / "adb-web-document-opt.js")
-  println(fullOptJsPath, dest / "adb-web-document-opt.js")
 
   val resourcePaths = `adb-web-document`.resources().map(_.path)
   assert(resourcePaths.forall(os.exists(_)))
