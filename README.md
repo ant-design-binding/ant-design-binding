@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/ant-design-binding/ant-design-binding.svg?branch=master)](https://travis-ci.org/ant-design-binding/ant-design-binding)
 
 ## Project state
-Currently under early development
+Currently under [Bootstrap Stage 1](#stage-1)
 
 ## Document | Getting Started
 [Please see the document here](https://ant-design-binding.org/).
@@ -24,7 +24,7 @@ Among these stages we will focus to implements components from version [3.12.x](
 * Codebase may change rapidly with some breaking changes.
 * Versions in this stage will be 1.x.x, and becomes 2.0.0 when this stage finished.
 ### Stage 3:
-* This stage is aiming to produce documents & boilerplates/templates(just like [ANT DESIGN PRO](https://pro.ant.design/index-cn))
+* This stage is aiming to produce documents & boilerplates/templates (just like [ANT DESIGN PRO](https://pro.ant.design/index-cn)).
 * We will switch to using self-maintained .less files and compile them into css.
 * Codebase will becomes stable with maybe a little breaking changes.
 * Versions in this stage will be 2.x.x, and becomes 3.0.0 when this stage finished.
