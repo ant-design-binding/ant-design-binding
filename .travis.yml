@@ -1,7 +1,11 @@
 language: scala
 scala:
   - 2.11.12
-cache: npm
+cache:
+  directories:
+      - $HOME/.ivy2
+      - $HOME/.coursier
+      - $HOME/.npm
 script:
   - npm install
   - curl -L -o ~/bin/mill https://github.com/lihaoyi/mill/releases/download/0.3.5/0.3.5 && chmod +x ~/bin/mill
