@@ -10,9 +10,10 @@ trait CommonScalaJsModule extends SbtLayoutScalaJSModule {
   override def scalaVersion = "2.11.12"
   override def scalaJSVersion = "0.6.26"
   override def scalacOptions = Seq("-deprecation", "-feature")
-  override def scalacPluginIvyDeps = Agg(
-    ivy"org.scalamacros:::paradise:2.1.1"
-  )
+  override def scalacPluginIvyDeps = T {
+    super.scalacPluginIvyDeps() ++
+    Seq(ivy"org.scalamacros:::paradise:2.1.1")
+  }
 }
 
 object `adb-component` extends CommonScalaJsModule {
