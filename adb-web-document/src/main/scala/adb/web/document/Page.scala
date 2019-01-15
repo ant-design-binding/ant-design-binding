@@ -7,19 +7,11 @@ import org.scalajs.dom.Node
 
 object Page {
 
-  def toDemoCode(implicit demoCode: DemoCode): DemoCode = demoCode
-
   @dom
   def apply(): Binding[Node] = {
     <div>
       {header.bind}
       {mainWrapper.bind}
-      {println(toDemoCode{
-      // DEMO CODE
-      <div></div>
-      // DEMO CODE
-    })
-      "yooo"}
     </div>
   }
 
