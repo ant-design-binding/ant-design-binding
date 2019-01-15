@@ -10,15 +10,37 @@ case class DemoCode(component: Binding[Node], sourceCode: String)
 
 object DemoCode {
   implicit def bindingNodeToDemoCode(bindingNode: Binding[Node]): DemoCode = macro DemoCodeMacros.bindingNodeToDemoCode
+
+  implicit def nodeToDemoCode(node: Node): DemoCode = macro DemoCodeMacros.nodeToDemoCode
 }
 
 private class DemoCodeMacros(val c: scala.reflect.macros.blackbox.Context) {
 
   import c.universe._
 
+  private def getDemoCode(pos: Position): String = {
+    // because @dom macro wipes the line number inside defs, this may result in a larger range then the actual position
+    val fromOutsideDef = new String(pos.source.content)
+      .split("\n")
+      .toList
+      .drop(pos.line)
+    val afterFirstCodeDemoComment = fromOutsideDef
+      .dropWhile(!_.contains("// DEMO CODE"))
+      .tail
+    val targetCodeLines = afterFirstCodeDemoComment.takeWhile(!_.contains("// DEMO CODE"))
+    val indent = targetCodeLines.map(_.takeWhile(_ == ' ').length).min
+    targetCodeLines.map(_.drop(indent)).mkString("\n")
+  }
+
   def bindingNodeToDemoCode(bindingNode: Tree): Tree = {
     q"""
-       DemoCode($bindingNode, ${new String(bindingNode.pos.source.content)})
+       DemoCode($bindingNode, ${getDemoCode(bindingNode.pos)})
+     """
+  }
+
+  def nodeToDemoCode(node: Tree): Tree = {
+    q"""
+       DemoCode(_root_.com.thoughtworks.binding.Binding.Constant($node), ${getDemoCode(node.pos)})
      """
   }
 

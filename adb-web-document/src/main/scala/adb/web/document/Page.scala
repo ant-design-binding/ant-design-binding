@@ -1,15 +1,25 @@
 package adb.web.document
 
+import adb.web.document.component.DemoCode
 import com.thoughtworks.binding.{dom, Binding}
+import com.thoughtworks.binding.Binding.Constant
 import org.scalajs.dom.Node
 
 object Page {
+
+  def toDemoCode(implicit demoCode: DemoCode): DemoCode = demoCode
 
   @dom
   def apply(): Binding[Node] = {
     <div>
       {header.bind}
       {mainWrapper.bind}
+      {println(toDemoCode{
+      // DEMO CODE
+      <div></div>
+      // DEMO CODE
+    })
+      "yooo"}
     </div>
   }
 
