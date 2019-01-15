@@ -23,8 +23,12 @@ object `adb-component` extends CommonScalaJsModule {
   )
 }
 
-object `adb-web-document` extends CommonScalaJsModule {
+object `adb-web-document-macro` extends CommonScalaJsModule {
   override def moduleDeps = Seq(`adb-component`)
+}
+
+object `adb-web-document` extends CommonScalaJsModule {
+  override def moduleDeps = Seq(`adb-web-document-macro`)
 }
 
 def copyWebDocumentAssets = T {
