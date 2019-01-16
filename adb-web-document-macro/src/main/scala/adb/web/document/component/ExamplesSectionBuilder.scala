@@ -46,17 +46,15 @@ private class DemoCodeMacros(val c: scala.reflect.macros.blackbox.Context) {
 
 }
 
-case class ExamplesSectionBuilder() {
-  private val sections = List.newBuilder[(String, String, DemoCode)]
+case class ExampleSection(title: String, markdownDescription: String, demoCode: DemoCode)
 
-  def addCodeBox(title: String, markdownDescription: String)(demoCode: DemoCode): ExamplesSectionBuilder = {
-    sections += ((title, markdownDescription, demoCode))
+case class ExampleSectionsBuilder() {
+  private val sections = List.newBuilder[ExampleSection]
+
+  def addCodeBox(title: String, markdownDescription: String)(implicit demoCode: DemoCode): ExampleSectionsBuilder = {
+    sections += ExampleSection(title, markdownDescription, demoCode)
     this
   }
 
-  @dom
-  def build() = {
-    <div></div>
-    <div></div>
-  }
+  def build(): List[ExampleSection] = sections.result()
 }
