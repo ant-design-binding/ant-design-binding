@@ -16,19 +16,19 @@ trait CommonScalaJsModule extends SbtLayoutScalaJSModule {
   }
 }
 
-object `adb-component` extends CommonScalaJsModule {
+object `adb-component-document-util` extends CommonScalaJsModule {
   override def ivyDeps = Agg(
     ivy"com.thoughtworks.binding::dom::11.6.0",
     ivy"com.thoughtworks.binding::futurebinding::11.6.0"
   )
 }
 
-object `adb-web-document-macro` extends CommonScalaJsModule {
-  override def moduleDeps = Seq(`adb-component`)
+object `adb-component` extends CommonScalaJsModule {
+  override def moduleDeps = Seq(`adb-component-document-util`)
 }
 
 object `adb-web-document` extends CommonScalaJsModule {
-  override def moduleDeps = Seq(`adb-web-document-macro`)
+  override def moduleDeps = Seq(`adb-component`)
 }
 
 def copyWebDocumentAssets = T {

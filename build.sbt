@@ -25,8 +25,7 @@ lazy val adb = (project in file("."))
     }
   )
 
-
-lazy val `adb-component` = (project in file("adb-component"))
+lazy val `adb-component-document-util` = (project in file("adb-component-document-util"))
   .configure(_.enablePlugins(ScalaJSPlugin))
   .settings(commonSettings: _*)
   .settings(
@@ -36,13 +35,13 @@ lazy val `adb-component` = (project in file("adb-component"))
     )
   )
 
-lazy val `adb-web-document-macro` = (project in file("adb-web-document-macro"))
-  .dependsOn(`adb-component`)
+lazy val `adb-component` = (project in file("adb-component"))
+  .dependsOn(`adb-component-document-util`)
   .configure(_.enablePlugins(ScalaJSPlugin))
   .settings(commonSettings: _*)
 
 lazy val `adb-web-document` = (project in file("adb-web-document"))
-  .dependsOn(`adb-web-document-macro`)
+  .dependsOn(`adb-component`)
   .configure(_.enablePlugins(ScalaJSPlugin))
   .settings(commonSettings: _*)
   .settings(
