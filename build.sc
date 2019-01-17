@@ -19,7 +19,8 @@ trait CommonScalaJsModule extends SbtLayoutScalaJSModule {
 object `adb-component-document-util` extends CommonScalaJsModule {
   override def ivyDeps = Agg(
     ivy"com.thoughtworks.binding::dom::11.6.0",
-    ivy"com.thoughtworks.binding::futurebinding::11.6.0"
+    ivy"com.thoughtworks.binding::futurebinding::11.6.0",
+    ivy"com.beachape::enumeratum::1.5.13"
   )
 }
 

@@ -31,7 +31,8 @@ lazy val `adb-component-document-util` = (project in file("adb-component-documen
   .settings(
     libraryDependencies ++= Seq(
       "com.thoughtworks.binding" %%% "dom" % "11.6.0",
-      "com.thoughtworks.binding" %%% "futurebinding" % "11.6.0"
+      "com.thoughtworks.binding" %%% "futurebinding" % "11.6.0",
+      "com.beachape" %%% "enumeratum" % "1.5.13"
     )
   )
 
