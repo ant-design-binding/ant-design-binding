@@ -27,8 +27,8 @@ object Button {
 
   @dom
   def button(text: Binding[String], buttonType: Binding[ButtonType] = Constant(ButtonType.Default)): Binding[Button] = {
-    <button class={buttonType.bind.className}>
-      {text.bind}
+    <button type="button" class={"ant-btn " + buttonType.bind.className}>
+      <span>{text.bind}</span>
     </button>
   }
 

@@ -1,6 +1,11 @@
 package adb.web.document
 
+import adb.component.button.ButtonDocument
+import adb.component.menu.Menu
+import adb.component.menu.Menu.NavigationItem
+import adb.web.document.page.AntDesignBinding
 import com.thoughtworks.binding.{dom, Binding}
+import com.thoughtworks.binding.Binding.{Constant, Constants, Var}
 import org.scalajs.dom.Node
 
 object Frame {
@@ -58,6 +63,17 @@ object Frame {
 
   @dom
   private def mainWrapper: Binding[Node] = {
+    val pages = Map(
+      "Ant Design Binding" -> AntDesignBinding.page(),
+      "Button" -> ButtonDocument.page()
+    )
+    val ni = for {
+      (k, v) <- Constants(pages.toSeq: _*)
+    } yield {
+      NavigationItem[Binding[Node]](v, Constant { <span>{k}</span> })
+    }
+    val si = Var(Option(pages.head._2))
+
     <div class="main-wrapper">
       <div class="ant-row">
         <div class="main-menu ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-6 ant-col-xl-5 ant-col-xxl-4">
@@ -65,16 +81,18 @@ object Frame {
             <div class="">
               <section class="main-menu-inner">
                 <ul class="ant-menu aside-container menu-site ant-menu-light ant-menu-root ant-menu-inline">
-                  <!-- TODO swapped with menu component -->
+                  {Menu.navigation(ni.bind, si).bind}
                 </ul>
               </section>
             </div>
           </div>
         </div>
         <div class="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-18 ant-col-xl-19 ant-col-xxl-20">
-          <section class="main-container main-container-component">
-            <article>
-
+          <section class="main-container">
+            <article class="markdown">
+              <div class="markdown">
+                {si.bind.get.bind}
+              </div>
             </article>
           </section>
         </div>

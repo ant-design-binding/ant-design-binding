@@ -8,7 +8,7 @@ object Menu {
 
   @dom
   def menu(children: BindingSeq[Node]): Binding[Node] = {
-    <ul class="ant-menu ant-menu-dark ant-menu-root ant-menu-inline">
+    <ul class="ant-menu ant-menu-light ant-menu-root ant-menu-inline">
       {children.map(v => v)}
     </ul>
   }
@@ -23,7 +23,7 @@ object Menu {
 
   case class NavigationItem[T](selectedItem: T, content: Binding[Node])
 
-  def navigation[T](navigationItems: List[NavigationItem[T]], selectedItem: Var[Option[T]]): Binding[Node] = {
+  def navigation[T](navigationItems: Seq[NavigationItem[T]], selectedItem: Var[Option[T]]): Binding[Node] = {
     menu {
       for {
         ni <- Constants(navigationItems: _*)

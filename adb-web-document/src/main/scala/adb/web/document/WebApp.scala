@@ -10,7 +10,7 @@ object WebApp {
 
   @JSExport
   def start(): Unit = {
-    dom.render(document.body, Page.apply)
+    dom.render(document.body, Frame.apply)
   }
 
 }
