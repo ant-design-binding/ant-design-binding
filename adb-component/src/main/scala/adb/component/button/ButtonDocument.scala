@@ -30,7 +30,7 @@ object ButtonDocument {
     <div>
       <h1>Button</h1>
       <p>To trigger an operation.</p>
-      <h2>"When To Use"</h2>
+      <h2>When To Use</h2>
       <p>A button means an operation (or a series of operations). Clicking a button will trigger corresponding business logic.</p>
       {Examples.examples(builder).bind}
     </div>
