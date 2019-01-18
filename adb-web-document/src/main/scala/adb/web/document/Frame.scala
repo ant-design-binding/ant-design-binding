@@ -25,7 +25,7 @@ object Frame {
         <div class="ant-col-xs-24 ant-col-sm-24 ant-col-md-5 ant-col-lg-5 ant-col-xl-5 ant-col-xxl-4">
           <a id="logo" href="/">
             <img alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"/>
-            <img alt="Ant Design" src="https://gw.alipayobjects.com/zos/rmsportal/DkKNubTaaVsKURhcVGkh.svg"/>
+            <h3 style="display:inline; vertical-align: middle;">Ant Design Binding</h3>
           </a>
         </div>
         <div class="ant-col-xs-0 ant-col-sm-0 ant-col-md-19 ant-col-lg-19 ant-col-xl-19 ant-col-xxl-20">
