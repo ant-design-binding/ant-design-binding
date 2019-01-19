@@ -1,4 +1,4 @@
-# ant-design-binding (adb)
+# Ant Design Binding (adb)
 > Amazing components &amp; design language in Scala
 
 [![Build Status](https://travis-ci.org/ant-design-binding/ant-design-binding.svg?branch=master)](https://travis-ci.org/ant-design-binding/ant-design-binding)
