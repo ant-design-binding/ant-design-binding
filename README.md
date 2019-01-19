@@ -5,11 +5,11 @@
 
 [![Scala.js](https://img.shields.io/badge/scala.js-0.6.26-blue.svg)](https://www.scala-js.org) 
 
+## Getting Started | Document
+[Please see the document here](https://ant-design-binding.org/).
+
 ## Project state
 Currently under [Bootstrap Stage 1](#stage-1)
-
-## Document | Getting Started
-[Please see the document here](https://ant-design-binding.org/).
 
 ## Bootstrap stages
 This project will follow 3 bootstrap stages.
