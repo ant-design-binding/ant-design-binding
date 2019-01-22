@@ -1,4 +1,4 @@
-import mill._, scalalib._
+import mill._, scalalib._, publish._
 import mill.scalajslib._
 
 trait SbtLayoutScalaJSModule extends ScalaJSModule {
@@ -16,7 +16,22 @@ trait CommonScalaJsModule extends SbtLayoutScalaJSModule {
   }
 }
 
-object `adb-component-document-util` extends CommonScalaJsModule {
+trait AdbPublishModule extends ScalaModule with PublishModule {
+  def publishVersion = "0.0.1"
+
+  def pomSettings = PomSettings(
+    description = "Amazing components & design language in Scala.js",
+    organization = "org.ant-design-binding",
+    url = "https://ant-design-binding.org/",
+    licenses = Seq(License.MIT),
+    versionControl = VersionControl.github("ant-design-binding", "ant-design-binding"),
+    developers = Seq(
+      Developer("lxohi", "lxohi", "https://github.com/lxohi")
+    )
+  )
+}
+
+object `adb-component-document-util` extends CommonScalaJsModule with AdbPublishModule {
   override def ivyDeps = Agg(
     ivy"com.thoughtworks.binding::dom::11.6.0",
     ivy"com.thoughtworks.binding::futurebinding::11.6.0",
@@ -24,7 +39,7 @@ object `adb-component-document-util` extends CommonScalaJsModule {
   )
 }
 
-object `adb-component` extends CommonScalaJsModule {
+object `adb-component` extends CommonScalaJsModule with AdbPublishModule {
   override def moduleDeps = Seq(`adb-component-document-util`)
 }
 
