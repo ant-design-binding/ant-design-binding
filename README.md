@@ -1,7 +1,7 @@
 # Ant Design Binding (adb)
 > Amazing components &amp; design language in Scala.js
 
-[![Build Status](https://travis-ci.org/ant-design-binding/ant-design-binding.svg?branch=master)](https://travis-ci.org/ant-design-binding/ant-design-binding)
+[![Build Status](https://travis-ci.org/ant-design-binding/ant-design-binding.svg?branch=master)](https://travis-ci.org/ant-design-binding/ant-design-binding) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.ant-design-binding/adb-component_sjs0.6_2.11/badge.svg)](https://search.maven.org/search?q=g:org.ant-design-binding%20adb-component)
 
 [![Scala.js](https://img.shields.io/badge/scala.js-0.6.26-blue.svg)](https://www.scala-js.org) 
 
