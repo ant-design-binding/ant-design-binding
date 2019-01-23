@@ -7,7 +7,7 @@ object HtmlUtil {
     (new DOMParser)
       .parseFromString(html, "text/html")
       .children(0) // generated <html>
-      .children(2) // generated <body>
+      .children(1) // generated <body>
       .children(0) // parsed HTML Node
       .cloneNode(true)
   }
