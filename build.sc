@@ -53,7 +53,7 @@ def copyWebDocumentAssets = T {
   os.makeDir.all(ctx.dest)
   val dest = ctx.dest
 
-  val fullOptJsPath = `adb-web-document`.fullOpt().path
+  val fullOptJsPath = `adb-web-document`.fastOpt().path
   os.copy(fullOptJsPath, dest / "adb-web-document-opt.js")
   os.copy(os.Path(fullOptJsPath.toString+".map"), dest / "out.js.map")
 

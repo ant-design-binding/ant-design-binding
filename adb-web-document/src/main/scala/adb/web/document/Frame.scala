@@ -3,7 +3,8 @@ package adb.web.document
 import adb.component.button.ButtonDocument
 import adb.component.menu.Menu
 import adb.component.menu.Menu.NavigationItem
-import adb.util.HtmlUtil
+import adb.component.tab.TabsDocument
+import adb.util.{BindingUtil, HtmlUtil}
 import adb.web.document.page.AntDesignBinding
 import com.thoughtworks.binding.{dom, Binding}
 import com.thoughtworks.binding.Binding.{Constant, Constants, Var}
@@ -71,7 +72,8 @@ object Frame {
   private def mainWrapper: Binding[Node] = {
     val pages = Map(
       "Ant Design Binding" -> AntDesignBinding.page(),
-      "Button" -> ButtonDocument.page()
+      "Button" -> ButtonDocument.page(),
+      "Tabs" -> TabsDocument.page()
     )
     val ni = for {
       (k, v) <- Constants(pages.toSeq: _*)
@@ -87,7 +89,7 @@ object Frame {
             <div class="">
               <section class="main-menu-inner">
                 <ul class="ant-menu aside-container menu-site ant-menu-light ant-menu-root ant-menu-inline">
-                  {Menu.navigation(ni.bind, si).bind}
+                  {Menu.navigation(ni.all.bind, si).bind}
                 </ul>
               </section>
             </div>

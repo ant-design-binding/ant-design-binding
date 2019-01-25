@@ -88,7 +88,7 @@ trait CodeDemoComponent {
   @dom
   def render: Binding[Node] = {
     val expanded = Var(false)
-    val handler = (_:Event) => {
+    val handler = (_: Event) => {
       expanded.value = !expanded.value
     }
 
@@ -126,24 +126,26 @@ trait CodeDemoComponent {
 object Examples {
 
   @dom
-  def examples(builder: mutable.Builder[CodeDemoComponent, Seq[CodeDemoComponent]]): Binding[Node] = {
+  def examples(builder: mutable.Builder[CodeDemoComponent, Seq[CodeDemoComponent]], columnNum: Int = 2): Binding[Node] = {
     val groups = builder
       .result()
       .zipWithIndex
-      .groupBy(_._2 % 2)
+      .groupBy(_._2 % columnNum)
       .mapValues(_.map(_._1.render))
-    val leftGroup = groups.getOrElse(0, Nil)
-    val rightGroup = groups.getOrElse(1, Nil)
+    val columns = (0 until columnNum).map(i => groups.getOrElse(i,Nil))
 
     <div>
       <h2>Examples</h2>
       <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
-        <div class="ant-col-12 code-boxes-col-2-1" style="padding-left: 8px; padding-right: 8px;">
-          {Constants(leftGroup: _*).map(v => v.bind)}
-        </div>
-        <div class="ant-col-12 code-boxes-col-2-1" style="padding-left: 8px; padding-right: 8px;">
-          {Constants(rightGroup: _*).map(v => v.bind)}
-        </div>
+        {
+          for {
+            column <- Constants(columns: _*)
+          } yield {
+            <div class={s"ant-col-${24 / columnNum} code-boxes-col-$columnNum-1"} style="padding-left: 8px; padding-right: 8px;">
+              {Constants(column: _*).map(v => v.bind)}
+            </div>
+          }
+        }
       </div>
     </div>
   }
