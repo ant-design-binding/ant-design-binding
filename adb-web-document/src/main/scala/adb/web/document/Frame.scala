@@ -3,6 +3,7 @@ package adb.web.document
 import adb.component.button.ButtonDocument
 import adb.component.menu.Menu
 import adb.component.menu.Menu.NavigationItem
+import adb.component.table.TableDocument
 import adb.component.tabs.TabsDocument
 import adb.util.{BindingUtil, HtmlUtil}
 import adb.web.document.page.AntDesignBinding
@@ -73,6 +74,7 @@ object Frame {
     val pages = Map(
       "Ant Design Binding" -> AntDesignBinding.page(),
       "Button" -> ButtonDocument.page(),
+      "Table" -> TableDocument.page(),
       "Tabs" -> TabsDocument.page()
     )
     val ni = for {
