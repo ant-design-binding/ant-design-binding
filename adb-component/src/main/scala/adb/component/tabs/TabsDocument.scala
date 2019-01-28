@@ -1,8 +1,8 @@
-package adb.component.tab
+package adb.component.tabs
 
 import scala.collection.mutable
 
-import adb.component.tab.Tabs.TabContent
+import adb.component.tabs.Tabs.TabContent
 import adb.web.document.component._
 import com.thoughtworks.binding.{dom, Binding}
 import com.thoughtworks.binding.Binding.Constant

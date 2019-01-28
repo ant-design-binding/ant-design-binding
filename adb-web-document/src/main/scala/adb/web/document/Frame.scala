@@ -3,7 +3,7 @@ package adb.web.document
 import adb.component.button.ButtonDocument
 import adb.component.menu.Menu
 import adb.component.menu.Menu.NavigationItem
-import adb.component.tab.TabsDocument
+import adb.component.tabs.TabsDocument
 import adb.util.{BindingUtil, HtmlUtil}
 import adb.web.document.page.AntDesignBinding
 import com.thoughtworks.binding.{dom, Binding}

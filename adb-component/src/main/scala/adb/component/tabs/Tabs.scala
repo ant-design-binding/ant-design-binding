@@ -1,4 +1,4 @@
-package adb.component.tab
+package adb.component.tabs
 
 import adb.util.BindingUtil._
 import com.thoughtworks.binding.{dom, Binding}
