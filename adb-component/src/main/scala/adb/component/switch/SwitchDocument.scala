@@ -34,7 +34,7 @@ object SwitchDocument {
         <li>If you need to represent the switching between two states or on-off state.</li>
         <li>The difference between Switch and Checkbox is that Switch will trigger a state change directly when you toggle it, while Checkbox is generally used for state marking, which should work in conjunction with submit operation.</li>
       </ul>
-      {Examples.examples(builder, 1).bind}
+      {Examples.examples(builder).bind}
     </div>
   }
 
