@@ -2,7 +2,9 @@ package adb.component.table
 
 import scala.collection.mutable
 
+import adb.component.button.ButtonDocument.builder
 import adb.component.table.Table.TableCellContent
+import adb.util.HtmlUtil
 import adb.web.document.component._
 import com.thoughtworks.binding.{dom, Binding}
 import com.thoughtworks.binding.Binding.Constants
@@ -47,20 +49,17 @@ object TableDocument {
     // DEMO CODE
   }
 
-  @dom
-  def page(): Binding[Node] = {
-    <div>
-      <div class="markdown">
-        <h1>Table</h1>
-        <p>A table displays rows of data.</p>
-        <h2>When To Use</h2>
-        <ul>
-          <li>To display a collection of structured data.</li>
-          <li>To sort, search, paginate, filter data.</li>
-        </ul>
-      </div>
-      {Examples.examples(builder, 1).bind}
-    </div>
-  }
+  val page: Binding[Node] = Examples.examples(builder, 1)(
+    """
+      |# Table
+      |
+      |A table displays rows of data.
+      |
+      |## When To Use
+      |
+      |- To display a collection of structured data.
+      |- To sort, search, paginate, filter data.
+    """.stripMargin
+  )
 
 }

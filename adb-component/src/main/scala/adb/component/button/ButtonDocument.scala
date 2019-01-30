@@ -6,6 +6,8 @@ import adb.web.document.component._
 import com.thoughtworks.binding.{dom, Binding}
 import org.scalajs.dom.raw.Node
 import Button.{button, ButtonType}
+import adb.component.pagination.PaginationDocument.builder
+import adb.util.HtmlUtil
 import com.thoughtworks.binding.Binding.{BindingSeq, Constant, Constants}
 
 object ButtonDocument {
@@ -25,17 +27,16 @@ object ButtonDocument {
     // DEMO CODE
   }
 
-  @dom
-  def page(): Binding[Node] = {
-    <div>
-      <div class="markdown">
-        <h1>Button</h1>
-        <p>To trigger an operation.</p>
-        <h2>When To Use</h2>
-        <p>A button means an operation (or a series of operations). Clicking a button will trigger corresponding business logic.</p>
-      </div>
-      {Examples.examples(builder).bind}
-    </div>
-  }
+  val page: Binding[Node] = Examples.examples(builder)(
+    """
+      |# Button
+      |
+      |To trigger an operation.
+      |
+      |## When To Use
+      |
+      |A button means an operation (or a series of operations). Clicking a button will trigger corresponding business logic.
+    """.stripMargin
+  )
 
 }

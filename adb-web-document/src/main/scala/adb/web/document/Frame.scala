@@ -74,12 +74,12 @@ object Frame {
   @dom
   private def mainWrapper: Binding[Node] = {
     val pages = Map(
-      "Ant Design Binding" -> AntDesignBinding.page(),
-      "Button" -> ButtonDocument.page(),
-      "Pagination" -> PaginationDocument.page(),
-      "Switch" -> SwitchDocument.page(),
-      "Table" -> TableDocument.page(),
-      "Tabs" -> TabsDocument.page()
+      "Ant Design Binding" -> AntDesignBinding.page,
+      "Button" -> ButtonDocument.page,
+      "Pagination" -> PaginationDocument.page,
+      "Switch" -> SwitchDocument.page,
+      "Table" -> TableDocument.page,
+      "Tabs" -> TabsDocument.page
     )
     val ni = for {
       (k, v) <- Constants(pages.toSeq: _*)

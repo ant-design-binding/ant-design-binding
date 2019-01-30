@@ -2,7 +2,9 @@ package adb.component.tabs
 
 import scala.collection.mutable
 
+import adb.component.table.TableDocument.builder
 import adb.component.tabs.Tabs.TabContent
+import adb.util.HtmlUtil
 import adb.web.document.component._
 import com.thoughtworks.binding.{dom, Binding}
 import com.thoughtworks.binding.Binding.Constant
@@ -28,21 +30,18 @@ object TabsDocument {
     // DEMO CODE
   }
 
-  @dom
-  def page(): Binding[Node] = {
-    <div>
-      <div class="markdown">
-        <h1>Tabs</h1>
-        <p>Tabs make it easy to switch between different views.</p>
-        <h2>When To Use</h2>
-        <ul>
-          <li>Card Tabs: for managing too many closeable views.</li>
-          <li>Normal Tabs: for functional aspects of a page.</li>
-          <li>RadioButton: for secondary tabs.</li>
-        </ul>
-      </div>
-      {Examples.examples(builder, 1).bind}
-    </div>
-  }
+  val page: Binding[Node] = Examples.examples(builder, 1)(
+    """
+      |# Tabs
+      |
+      |Tabs make it easy to switch between different views.
+      |
+      |## When To Use
+      |
+      |- Card Tabs: for managing too many closeable views.
+      |- Normal Tabs: for functional aspects of a page.
+      |- RadioButton: for secondary tabs.
+    """.stripMargin
+  )
 
 }

@@ -4,6 +4,7 @@ import scala.annotation.{compileTimeOnly, StaticAnnotation}
 import scala.collection.mutable
 import scala.language.experimental.macros
 
+import adb.util.Markdown
 import com.thoughtworks.binding.{dom, Binding}
 import com.thoughtworks.binding.Binding.{Constants, Var}
 import org.scalajs.dom.raw.{Event, Node}
@@ -126,7 +127,7 @@ trait CodeDemoComponent {
 object Examples {
 
   @dom
-  def examples(builder: mutable.Builder[CodeDemoComponent, Seq[CodeDemoComponent]], columnNum: Int = 2): Binding[Node] = {
+  def examples(builder: mutable.Builder[CodeDemoComponent, Seq[CodeDemoComponent]], columnNum: Int = 2)(documentMarkdown :String): Binding[Node] = {
     val groups = builder
       .result()
       .zipWithIndex
@@ -135,7 +136,7 @@ object Examples {
     val columns = (0 until columnNum).map(i => groups.getOrElse(i,Nil))
 
     <div>
-      <h2>Examples</h2>
+      {Markdown(documentMarkdown+ "\n## Examples")}
       <div class="ant-row" style="margin-left: -8px; margin-right: -8px;">
         {
           for {
