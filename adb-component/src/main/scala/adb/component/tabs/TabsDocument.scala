@@ -31,14 +31,16 @@ object TabsDocument {
   @dom
   def page(): Binding[Node] = {
     <div>
-      <h1>Tabs</h1>
-      <p>Tabs make it easy to switch between different views.</p>
-      <h2>When To Use</h2>
-      <ul>
-        <li>Card Tabs: for managing too many closeable views.</li>
-        <li>Normal Tabs: for functional aspects of a page.</li>
-        <li>RadioButton: for secondary tabs.</li>
-      </ul>
+      <div class="markdown">
+        <h1>Tabs</h1>
+        <p>Tabs make it easy to switch between different views.</p>
+        <h2>When To Use</h2>
+        <ul>
+          <li>Card Tabs: for managing too many closeable views.</li>
+          <li>Normal Tabs: for functional aspects of a page.</li>
+          <li>RadioButton: for secondary tabs.</li>
+        </ul>
+      </div>
       {Examples.examples(builder, 1).bind}
     </div>
   }

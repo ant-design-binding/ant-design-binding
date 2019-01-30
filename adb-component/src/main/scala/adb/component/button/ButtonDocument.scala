@@ -28,10 +28,12 @@ object ButtonDocument {
   @dom
   def page(): Binding[Node] = {
     <div>
-      <h1>Button</h1>
-      <p>To trigger an operation.</p>
-      <h2>When To Use</h2>
-      <p>A button means an operation (or a series of operations). Clicking a button will trigger corresponding business logic.</p>
+      <div class="markdown">
+        <h1>Button</h1>
+        <p>To trigger an operation.</p>
+        <h2>When To Use</h2>
+        <p>A button means an operation (or a series of operations). Clicking a button will trigger corresponding business logic.</p>
+      </div>
       {Examples.examples(builder).bind}
     </div>
   }

@@ -7,7 +7,7 @@ object AntDesignBinding {
 
   @dom
   def page(): Binding[Node] = {
-    <div>
+    <div class="markdown">
       <h1>Ant Design Binding</h1>
     </div>
   }

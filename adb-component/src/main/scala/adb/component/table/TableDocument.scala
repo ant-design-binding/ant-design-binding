@@ -50,13 +50,15 @@ object TableDocument {
   @dom
   def page(): Binding[Node] = {
     <div>
-      <h1>Table</h1>
-      <p>A table displays rows of data.</p>
-      <h2>When To Use</h2>
-      <ul>
-        <li>To display a collection of structured data.</li>
-        <li>To sort, search, paginate, filter data.</li>
-      </ul>
+      <div class="markdown">
+        <h1>Table</h1>
+        <p>A table displays rows of data.</p>
+        <h2>When To Use</h2>
+        <ul>
+          <li>To display a collection of structured data.</li>
+          <li>To sort, search, paginate, filter data.</li>
+        </ul>
+      </div>
       {Examples.examples(builder, 1).bind}
     </div>
   }

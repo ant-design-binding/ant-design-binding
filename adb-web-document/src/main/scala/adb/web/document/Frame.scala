@@ -3,6 +3,7 @@ package adb.web.document
 import adb.component.button.ButtonDocument
 import adb.component.menu.Menu
 import adb.component.menu.Menu.NavigationItem
+import adb.component.pagination.PaginationDocument
 import adb.component.switch.SwitchDocument
 import adb.component.table.TableDocument
 import adb.component.tabs.TabsDocument
@@ -75,6 +76,7 @@ object Frame {
     val pages = Map(
       "Ant Design Binding" -> AntDesignBinding.page(),
       "Button" -> ButtonDocument.page(),
+      "Pagination" -> PaginationDocument.page(),
       "Switch" -> SwitchDocument.page(),
       "Table" -> TableDocument.page(),
       "Tabs" -> TabsDocument.page()
@@ -101,8 +103,8 @@ object Frame {
         </div>
         <div class="ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-18 ant-col-xl-19 ant-col-xxl-20">
           <section class="main-container">
-            <article class="markdown">
-              <div class="markdown">
+            <article>
+              <div>
                 {si.bind.get.bind}
               </div>
             </article>
