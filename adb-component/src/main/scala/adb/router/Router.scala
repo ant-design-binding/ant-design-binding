@@ -7,7 +7,7 @@ import com.thoughtworks.binding.Binding
 import com.thoughtworks.binding.Binding.Var
 import org.scalajs.dom.raw.Node
 
-case class Router(routingStrategy: RoutingStrategy, notFoundPage: Binding[Node]) {
+case class Router(notFoundPage: Binding[Node])(routingStrategy: RoutingStrategy) {
   private val currentPage = Var(notFoundPage)
 
   def route(path: String): Unit = {
@@ -77,10 +77,11 @@ object RoutingStrategy {
   def extractLong: Directive[Long] = extract(s => Try(s.toLong).toOption)
 
   def defaultPath(value: => Binding[Node]): RoutingStrategy = new RoutingStrategy {
-    override def exec(path: Path): Option[Binding[Node]] = if (path.segments.isEmpty) {
-      Some(value)
-    } else {
-      None
-    }
+    override def exec(path: Path): Option[Binding[Node]] =
+      if (path.segments.isEmpty) {
+        Some(value)
+      } else {
+        None
+      }
   }
 }
