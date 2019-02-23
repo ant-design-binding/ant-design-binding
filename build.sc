@@ -17,7 +17,7 @@ trait CommonScalaJsModule extends SbtLayoutScalaJSModule {
 }
 
 trait AdbPublishModule extends ScalaModule with PublishModule {
-  def publishVersion = "0.2.0"
+  def publishVersion = "0.3.0"
 
   def pomSettings = PomSettings(
     description = "Amazing components & design language in Scala.js",
