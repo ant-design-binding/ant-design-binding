@@ -40,7 +40,7 @@ object Menu {
           }.bind
         }
       },
-      true
+      isDark
     )
   }
 
