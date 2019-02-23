@@ -23,7 +23,11 @@ object Menu {
 
   case class NavigationItem[T](selectedItem: T, content: Binding[Node])
 
-  def navigation[T](navigationItems: Seq[NavigationItem[T]], selectedItem: Var[Option[T]], isDark: Boolean = false): Binding[Node] = {
+  def navigation[T](
+      navigationItems: Seq[NavigationItem[T]],
+      selectedItem: Var[Option[T]],
+      onItemSelected: (T, Var[Option[T]]) => Unit = (i: T, si: Var[Option[T]]) => si.value = Some(i),
+      isDark: Boolean = false): Binding[Node] = {
     menu(
       {
         for {
@@ -33,7 +37,7 @@ object Menu {
             `class` = Constant(if (selectedItem.bind.contains(ni.selectedItem)) "ant-menu-item-selected" else ""),
             style = Constant("padding-left: 24px;"),
             onclick = (_: Event) => {
-              selectedItem.value = Some(ni.selectedItem)
+              onItemSelected(ni.selectedItem, selectedItem)
             }
           ) {
             SingletonBindingSeq(ni.content)
