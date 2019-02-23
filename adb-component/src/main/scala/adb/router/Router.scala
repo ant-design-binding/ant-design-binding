@@ -8,14 +8,19 @@ import com.thoughtworks.binding.Binding.Var
 import org.scalajs.dom.raw.Node
 
 case class Router(notFoundPage: Binding[Node])(routingStrategy: RoutingStrategy) {
+  private val currentPath = Var(Path(Nil))
   private val currentPage = Var(notFoundPage)
 
   def route(path: String): Unit = {
-    val page = routingStrategy.exec(Path.fromStr(path)).getOrElse(notFoundPage)
+    val p = Path.fromStr(path)
+    val page = routingStrategy.exec(p).getOrElse(notFoundPage)
+    currentPath.value = p
     currentPage.value = page
   }
 
   def page: Binding[Binding[Node]] = currentPage
+
+  def path: Binding[Path] = currentPath
 }
 
 trait RoutingStrategy {
@@ -39,7 +44,10 @@ case class Path(segments: Seq[String]) {
 }
 
 object Path {
-  def fromStr(path: String) = Path(path.split("/", -1).toSeq)
+  def fromStr(path: String) = Path(path.split("/", -1).toList match {
+    case "" :: xs => xs
+    case v => v
+  })
 
   implicit def fromSeqStr(segments: Seq[String]): Path = Path(segments)
 }
