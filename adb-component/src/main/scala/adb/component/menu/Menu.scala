@@ -7,8 +7,8 @@ import org.scalajs.dom.raw.{Event, Node}
 object Menu {
 
   @dom
-  def menu(children: BindingSeq[Node]): Binding[Node] = {
-    <ul class="ant-menu ant-menu-light ant-menu-root ant-menu-inline">
+  def menu(children: BindingSeq[Node], isDark: Boolean = false): Binding[Node] = {
+    <ul class={"ant-menu ant-menu-root ant-menu-inline " + (if(isDark) "ant-menu-dark" else "ant-menu-light")}>
       {children.map(v => v)}
     </ul>
   }
@@ -23,22 +23,25 @@ object Menu {
 
   case class NavigationItem[T](selectedItem: T, content: Binding[Node])
 
-  def navigation[T](navigationItems: Seq[NavigationItem[T]], selectedItem: Var[Option[T]]): Binding[Node] = {
-    menu {
-      for {
-        ni <- Constants(navigationItems: _*)
-      } yield {
-        menuItem(
-          `class` = Constant(if (selectedItem.bind.contains(ni.selectedItem)) "ant-menu-item-selected" else ""),
-          style = Constant("padding-left: 24px;"),
-          onclick = (_: Event) => {
-            selectedItem.value = Some(ni.selectedItem)
-          }
-        ) {
-          SingletonBindingSeq(ni.content)
-        }.bind
-      }
-    }
+  def navigation[T](navigationItems: Seq[NavigationItem[T]], selectedItem: Var[Option[T]], isDark: Boolean = false): Binding[Node] = {
+    menu(
+      {
+        for {
+          ni <- Constants(navigationItems: _*)
+        } yield {
+          menuItem(
+            `class` = Constant(if (selectedItem.bind.contains(ni.selectedItem)) "ant-menu-item-selected" else ""),
+            style = Constant("padding-left: 24px;"),
+            onclick = (_: Event) => {
+              selectedItem.value = Some(ni.selectedItem)
+            }
+          ) {
+            SingletonBindingSeq(ni.content)
+          }.bind
+        }
+      },
+      true
+    )
   }
 
 }
