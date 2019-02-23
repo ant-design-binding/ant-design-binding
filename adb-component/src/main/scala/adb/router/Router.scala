@@ -1,5 +1,6 @@
 package adb.router
 
+import scala.language.implicitConversions
 import scala.util.Try
 
 import com.thoughtworks.binding.Binding
@@ -39,6 +40,8 @@ case class Path(segments: Seq[String]) {
 
 object Path {
   def fromStr(path: String) = Path(path.split("/", -1).toSeq)
+
+  implicit def fromSeqStr(segments: Seq[String]): Path = Path(segments)
 }
 
 object RoutingStrategy {
