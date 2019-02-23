@@ -23,11 +23,18 @@ object Menu {
 
   case class NavigationItem[T](selectedItem: T, content: Binding[Node])
 
-  def navigation[T](
-      navigationItems: Seq[NavigationItem[T]],
-      selectedItem: Var[Option[T]],
-      onItemSelected: (T, Var[Option[T]]) => Unit = (i: T, si: Var[Option[T]]) => si.value = Some(i),
-      isDark: Boolean = false): Binding[Node] = {
+  trait ItemSelectOperation[T, U] {
+    def apply(t: T, u: U): Unit
+  }
+
+  object ItemSelectOperation {
+    implicit def varOptionChangeOperation[T]: ItemSelectOperation[T, Var[Option[T]]] = new ItemSelectOperation[T, Var[Option[T]]] {
+      override def apply(t: T, u: Var[Option[T]]): Unit = u.value = Some(t)
+    }
+  }
+
+  def navigation[T, U <: Binding[Option[T]]](navigationItems: Seq[NavigationItem[T]], selectedItem: U, isDark: Boolean = false)(
+      implicit iso: ItemSelectOperation[T, U]): Binding[Node] = {
     menu(
       {
         for {
@@ -37,7 +44,7 @@ object Menu {
             `class` = Constant(if (selectedItem.bind.contains(ni.selectedItem)) "ant-menu-item-selected" else ""),
             style = Constant("padding-left: 24px;"),
             onclick = (_: Event) => {
-              onItemSelected(ni.selectedItem, selectedItem)
+              iso(ni.selectedItem, selectedItem)
             }
           ) {
             SingletonBindingSeq(ni.content)
