@@ -1,6 +1,7 @@
 package adb.web.document
 
 import adb.component.button.ButtonDocument
+import adb.component.input.InputDocument
 import adb.component.menu.Menu
 import adb.component.menu.Menu.NavigationItem
 import adb.component.pagination.PaginationDocument
@@ -76,6 +77,7 @@ object Frame {
     val pages = Map(
       "Ant Design Binding" -> AntDesignBinding.page,
       "Button" -> ButtonDocument.page,
+      "Input" -> InputDocument.page,
       "Pagination" -> PaginationDocument.page,
       "Switch" -> SwitchDocument.page,
       "Table" -> TableDocument.page,
