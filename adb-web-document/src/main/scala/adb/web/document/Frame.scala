@@ -2,6 +2,7 @@ package adb.web.document
 
 import adb.component.button.ButtonDocument
 import adb.component.card.CardDocument
+import adb.component.form.FormDocument
 import adb.component.input.InputDocument
 import adb.component.menu.Menu
 import adb.component.menu.Menu.NavigationItem
@@ -79,6 +80,7 @@ object Frame {
       "Ant Design Binding" -> AntDesignBinding.page,
       "Button" -> ButtonDocument.page,
       "Card" -> CardDocument.page,
+      "Form" -> FormDocument.page,
       "Input" -> InputDocument.page,
       "Pagination" -> PaginationDocument.page,
       "Switch" -> SwitchDocument.page,
