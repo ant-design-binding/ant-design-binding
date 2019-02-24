@@ -39,7 +39,7 @@ trait Directive[T] {
 
 case class Path(segments: Seq[String]) {
   def subPath(start: Int, len: Int = Int.MaxValue): Path = {
-    Path(segments.slice(start, start + len))
+    Path(segments.drop(start).take(len))
   }
 }
 
