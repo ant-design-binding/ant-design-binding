@@ -80,6 +80,7 @@ trait Directive[T] {
   def apply(inner: T => RoutingStrategy): RoutingStrategy
 }
 
+// TODO #help-wanted separate Path into relative & absolute path classes
 case class Path(segments: Seq[String]) {
   def subPath(start: Int, len: Int = Int.MaxValue): Path = {
     //noinspection DropTakeToSlice
@@ -103,13 +104,11 @@ case class Path(segments: Seq[String]) {
 }
 
 object Path {
-  def fromStr(path: String): Path = {
-    val p = Path(path.split("/", -1).toSeq) match {
+  def fromStr(path: String): Path =
+    Path(path.split("/", -1).toSeq) match {
       case Path(le) if le.lastOption.contains("") => Path(le.dropRight(1))
       case v => v
     }
-    Path(Nil).concat(p)
-  }
 
   implicit def fromSeqStr(segments: Seq[String]): Path = Path(segments)
 }

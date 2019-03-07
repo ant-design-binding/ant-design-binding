@@ -37,6 +37,9 @@ object Menu {
       implicit iso: ItemSelectOperation[T, U]): Binding[Node] = {
     menu(
       {
+        println(navigationItems)
+        println(Constants(navigationItems: _*).value)
+
         for {
           ni <- Constants(navigationItems: _*)
         } yield {
