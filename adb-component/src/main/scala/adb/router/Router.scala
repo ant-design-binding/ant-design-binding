@@ -1,5 +1,6 @@
 package adb.router
 
+import scala.annotation.tailrec
 import scala.language.implicitConversions
 import scala.util.Try
 
@@ -22,7 +23,7 @@ case class Router(notFoundPage: Binding[Node], urlRoutingMode: UrlRoutingMode = 
       p.subPath(1)
     } else {
       // relative path
-      Path((lastPath.segments ++ p.segments).reverse.dropWhile(_.isEmpty).reverse)
+      lastPath.concat(p)
     }
     val page = routingStrategy.exec(newPath).getOrElse(notFoundPage)
     currentPath.value = newPath
@@ -85,11 +86,30 @@ case class Path(segments: Seq[String]) {
     Path(segments.drop(start).take(len))
   }
 
+  def concat(subPath: Path): Path = {
+    @tailrec
+    def doConcat(current: List[String], last: List[String]): List[String] =
+      last match {
+        case "." :: xs => doConcat(current, xs)
+        case ".." :: xs => doConcat(current.dropRight(1), xs)
+        case x :: xs => doConcat(current :+ x, xs)
+        case Nil => current
+      }
+
+    Path(doConcat(segments.toList, subPath.segments.toList))
+  }
+
   override def toString: String = segments.mkString("/")
 }
 
 object Path {
-  def fromStr(path: String) = Path(path.split("/", -1).toSeq)
+  def fromStr(path: String): Path = {
+    val p = Path(path.split("/", -1).toSeq) match {
+      case Path(le) if le.lastOption.contains("") => Path(le.dropRight(1))
+      case v => v
+    }
+    Path(Nil).concat(p)
+  }
 
   implicit def fromSeqStr(segments: Seq[String]): Path = Path(segments)
 }
