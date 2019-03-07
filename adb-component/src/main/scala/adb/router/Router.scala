@@ -5,15 +5,16 @@ import scala.util.Try
 
 import com.thoughtworks.binding.Binding
 import com.thoughtworks.binding.Binding.Var
-import org.scalajs.dom.raw.Node
+import org.scalajs.dom.raw.{Node, PopStateEvent}
 import org.scalajs.dom.window
 import org.scalajs.dom.document
 
-case class Router(notFoundPage: Binding[Node], afterRouteOperation: AfterRouteOperation = DefaultPushStateARO)(routingStrategy: RoutingStrategy) {
+case class Router(notFoundPage: Binding[Node], urlRoutingMode: UrlRoutingMode = DefaultPushStateURM)(routingStrategy: RoutingStrategy) {
   private val currentPath = Var(Path(Nil))
   private val currentPage = Var(notFoundPage)
+  urlRoutingMode.register(this)
 
-  def route(path: String): Unit = {
+  def route(path: String, doAfterRoute: Boolean = true): Unit = {
     val p = Path.fromStr(path)
     val lastPath = currentPath.value
     val newPath = if (p.segments.headOption.contains("")) {
@@ -26,11 +27,13 @@ case class Router(notFoundPage: Binding[Node], afterRouteOperation: AfterRouteOp
     val page = routingStrategy.exec(newPath).getOrElse(notFoundPage)
     currentPath.value = newPath
     currentPage.value = page
-    afterRouteOperation(lastPath, newPath)
+    if (doAfterRoute) {
+      urlRoutingMode.afterRoute(lastPath, newPath)
+    }
   }
 
   def routeByURL(): Unit = {
-    route(window.location.pathname)
+    route(window.location.pathname, doAfterRoute = false)
   }
 
   def page: Binding[Binding[Node]] = currentPage
@@ -38,16 +41,26 @@ case class Router(notFoundPage: Binding[Node], afterRouteOperation: AfterRouteOp
   def path: Binding[Path] = currentPath
 }
 
-trait AfterRouteOperation {
-  def apply(lastPath: Path, currentPath: Path): Unit
+trait UrlRoutingMode {
+  def register(router: Router): Unit
+
+  def afterRoute(lastPath: Path, currentPath: Path): Unit
 }
 
-object NoOpARO extends AfterRouteOperation {
-  override def apply(lastPath: Path, currentPath: Path): Unit = ()
+object NoOpURM extends UrlRoutingMode {
+  override def register(router: Router): Unit = ()
+
+  override def afterRoute(lastPath: Path, currentPath: Path): Unit = ()
 }
 
-object DefaultPushStateARO extends AfterRouteOperation {
-  override def apply(lastPath: Path, currentPath: Path): Unit = {
+object DefaultPushStateURM extends UrlRoutingMode {
+  override def register(router: Router): Unit = {
+    window.onpopstate = (_: PopStateEvent) => {
+      router.routeByURL()
+    }
+  }
+
+  override def afterRoute(lastPath: Path, currentPath: Path): Unit = {
     window.history.pushState(s"from:${lastPath.toString}", document.title, "/" + currentPath.toString)
   }
 }
