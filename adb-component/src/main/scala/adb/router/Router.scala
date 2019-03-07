@@ -29,6 +29,10 @@ case class Router(notFoundPage: Binding[Node], afterRouteOperation: AfterRouteOp
     afterRouteOperation(lastPath, newPath)
   }
 
+  def routeByURL(): Unit = {
+    route(window.location.pathname)
+  }
+
   def page: Binding[Binding[Node]] = currentPage
 
   def path: Binding[Path] = currentPath
