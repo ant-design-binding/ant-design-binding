@@ -1,5 +1,6 @@
 package adb.web.document
 
+import adb.component.badge.BadgeDocument
 import adb.component.button.ButtonDocument
 import adb.component.card.CardDocument
 import adb.component.form.FormDocument
@@ -76,9 +77,10 @@ object Frame {
 
   @dom
   private def mainWrapper: Binding[Node] = {
-    val pages = Map(
+    val pages = Seq(
       "Ant Design Binding" -> AntDesignBinding.page,
       "Button" -> ButtonDocument.page,
+      "Badge" -> BadgeDocument.page,
       "Card" -> CardDocument.page,
       "Form" -> FormDocument.page,
       "Input" -> InputDocument.page,
@@ -88,7 +90,7 @@ object Frame {
       "Tabs" -> TabsDocument.page
     )
     val ni = for {
-      (k, v) <- Constants(pages.toSeq: _*)
+      (k, v) <- Constants(pages: _*)
     } yield {
       NavigationItem[Binding[Node]](v, Constant { <span>{k}</span> })
     }
