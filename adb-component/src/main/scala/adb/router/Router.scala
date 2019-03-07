@@ -13,8 +13,15 @@ case class Router(notFoundPage: Binding[Node])(routingStrategy: RoutingStrategy)
 
   def route(path: String): Unit = {
     val p = Path.fromStr(path)
-    val page = routingStrategy.exec(p).getOrElse(notFoundPage)
-    currentPath.value = p
+    val newPath = if (p.segments.headOption.contains("")) {
+      // absolute path
+      p.subPath(1)
+    } else {
+      // relative path
+      Path((currentPath.value.segments ++ p.segments).reverse.dropWhile(_.isEmpty).reverse)
+    }
+    val page = routingStrategy.exec(newPath).getOrElse(notFoundPage)
+    currentPath.value = newPath
     currentPage.value = page
   }
 
@@ -45,10 +52,7 @@ case class Path(segments: Seq[String]) {
 }
 
 object Path {
-  def fromStr(path: String) = Path(path.split("/", -1).toList match {
-    case "" :: xs => xs
-    case v => v
-  })
+  def fromStr(path: String) = Path(path.split("/", -1).toSeq)
 
   implicit def fromSeqStr(segments: Seq[String]): Path = Path(segments)
 }
