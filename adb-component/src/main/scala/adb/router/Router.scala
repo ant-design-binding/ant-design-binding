@@ -6,28 +6,46 @@ import scala.util.Try
 import com.thoughtworks.binding.Binding
 import com.thoughtworks.binding.Binding.Var
 import org.scalajs.dom.raw.Node
+import org.scalajs.dom.window
+import org.scalajs.dom.document
 
-case class Router(notFoundPage: Binding[Node])(routingStrategy: RoutingStrategy) {
+case class Router(notFoundPage: Binding[Node], afterRouteOperation: AfterRouteOperation = DefaultPushStateARO)(routingStrategy: RoutingStrategy) {
   private val currentPath = Var(Path(Nil))
   private val currentPage = Var(notFoundPage)
 
   def route(path: String): Unit = {
     val p = Path.fromStr(path)
+    val lastPath = currentPath.value
     val newPath = if (p.segments.headOption.contains("")) {
       // absolute path
       p.subPath(1)
     } else {
       // relative path
-      Path((currentPath.value.segments ++ p.segments).reverse.dropWhile(_.isEmpty).reverse)
+      Path((lastPath.segments ++ p.segments).reverse.dropWhile(_.isEmpty).reverse)
     }
     val page = routingStrategy.exec(newPath).getOrElse(notFoundPage)
     currentPath.value = newPath
     currentPage.value = page
+    afterRouteOperation(lastPath, newPath)
   }
 
   def page: Binding[Binding[Node]] = currentPage
 
   def path: Binding[Path] = currentPath
+}
+
+trait AfterRouteOperation {
+  def apply(lastPath: Path, currentPath: Path): Unit
+}
+
+object NoOpARO extends AfterRouteOperation {
+  override def apply(lastPath: Path, currentPath: Path): Unit = ()
+}
+
+object DefaultPushStateARO extends AfterRouteOperation {
+  override def apply(lastPath: Path, currentPath: Path): Unit = {
+    window.history.pushState(s"from:${lastPath.toString}", document.title, "/" + currentPath.toString)
+  }
 }
 
 trait RoutingStrategy {
@@ -49,6 +67,8 @@ case class Path(segments: Seq[String]) {
     //noinspection DropTakeToSlice
     Path(segments.drop(start).take(len))
   }
+
+  override def toString: String = segments.mkString("/")
 }
 
 object Path {
