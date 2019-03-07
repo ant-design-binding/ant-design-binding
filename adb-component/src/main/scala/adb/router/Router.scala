@@ -39,6 +39,7 @@ trait Directive[T] {
 
 case class Path(segments: Seq[String]) {
   def subPath(start: Int, len: Int = Int.MaxValue): Path = {
+    //noinspection DropTakeToSlice
     Path(segments.drop(start).take(len))
   }
 }
