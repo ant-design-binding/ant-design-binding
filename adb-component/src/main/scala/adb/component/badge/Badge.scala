@@ -1,7 +1,8 @@
 package adb.component.badge
 
 import com.thoughtworks.binding.{dom, Binding}
-import org.scalajs.dom.raw.Node
+import com.thoughtworks.binding.bindable._
+import org.scalajs.dom.raw._
 
 object Badge {
 
@@ -34,8 +35,8 @@ object Badge {
   }
 
   @dom
-  def badge(status: BadgeStatus, text: String = ""): Binding[Node] = {
-    <span class="ant-badge ant-badge-status ant-badge-not-a-wrapper"><span class={"ant-badge-status-dot " + status.statusClass}></span><span class="ant-badge-status-text">{text}</span></span>
+  def badge[BadgeStatusT: Bindable.Lt[?, BadgeStatus], Text: Bindable.Lt[?, String]](status: BadgeStatusT, text: Text = ""): Binding[Node] = {
+    <span class="ant-badge ant-badge-status ant-badge-not-a-wrapper"><span class={"ant-badge-status-dot " + status.bind.statusClass}></span><span class="ant-badge-status-text">{text.bind}</span></span>
   }
 
 }
