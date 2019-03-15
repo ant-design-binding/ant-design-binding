@@ -3,9 +3,9 @@ package adb.component.button
 import scala.collection.immutable
 
 import com.thoughtworks.binding.{dom, Binding}
-import com.thoughtworks.binding.Binding.Constant
 import enumeratum._
 import org.scalajs.dom.html.Button
+import com.thoughtworks.binding.bindable._
 
 object Button {
 
@@ -26,7 +26,7 @@ object Button {
   }
 
   @dom
-  def button(text: Binding[String], buttonType: Binding[ButtonType] = Constant(ButtonType.Default)): Binding[Button] = {
+  def button[Text: Bindable.Lt[?, String], ButtonTypeT: Bindable.Lt[?, ButtonType]](text: Text, buttonType: ButtonTypeT = ButtonType.Default): Binding[Button] = {
     <button type="button" class={"ant-btn " + buttonType.bind.className}>
       <span>{text.bind}</span>
     </button>

@@ -2,13 +2,11 @@ package adb.component.button
 
 import scala.collection.mutable
 
+import adb.component.button.Button.{button, ButtonType}
 import adb.web.document.component._
 import com.thoughtworks.binding.{dom, Binding}
+import com.thoughtworks.binding.Binding.Constant
 import org.scalajs.dom.raw.Node
-import Button.{button, ButtonType}
-import adb.component.pagination.PaginationDocument.builder
-import adb.util.HtmlUtil
-import com.thoughtworks.binding.Binding.{BindingSeq, Constant, Constants}
 
 object ButtonDocument {
 
@@ -19,10 +17,10 @@ object ButtonDocument {
   private def test() = {
     // DEMO CODE
     <div>
-      {button(Constant("Primary"), Constant(ButtonType.Primary)).bind}
-      {button(Constant("Default"), Constant(ButtonType.Default)).bind}
-      {button(Constant("Dashed"), Constant(ButtonType.Dashed)).bind}
-      {button(Constant("Danger"), Constant(ButtonType.Danger)).bind}
+      {button("Primary", ButtonType.Primary).bind}
+      {button("Default", ButtonType.Default).bind}
+      {button(Constant("Dashed"), ButtonType.Dashed).bind}
+      {button("Danger", Constant(ButtonType.Danger)).bind}
     </div>
     // DEMO CODE
   }
