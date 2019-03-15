@@ -18,11 +18,11 @@ object CardDocument {
     <div style="width: 300px;">
       {
         Card.card(
-          Binding {
+          {
             <p>Card content</p>
             <p>Card content</p>
             <p>Card content</p>
-          }.bind,
+          },
           bordered = true
         ).bind
       }
