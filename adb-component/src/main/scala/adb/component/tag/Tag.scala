@@ -12,6 +12,10 @@ object Tag {
 
   object TagColor {
 
+    object None extends TagColor {
+      override private[tag] def colorClass = ""
+    }
+
     object Magenta extends TagColor {
       override private[tag] def colorClass = "ant-tag-magenta"
     }
@@ -59,7 +63,7 @@ object Tag {
   }
 
   @dom
-  def tag[Text: Bindable.Lt[?, String], TagColorT: Bindable.Lt[?, TagColor]](text: Text, tagColor: TagColorT): Binding[Node] = {
+  def tag[Text: Bindable.Lt[?, String], TagColorT: Bindable.Lt[?, TagColor]](text: Text, tagColor: TagColorT = TagColor.None): Binding[Node] = {
     <div class={"ant-tag " + tagColor.bind.colorClass}>
       {text.bind}
     </div>
