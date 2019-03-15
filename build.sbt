@@ -12,7 +12,8 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.12",
   javacOptions ++= Seq("-encoding", "UTF-8", "-source", "1.8"),
   scalacOptions ++= Seq("-deprecation", "-feature"),
-  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
+  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full),
+  addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.9")
 )
 
 lazy val adb = (project in file("."))
@@ -31,6 +32,7 @@ lazy val `adb-component-document-util` = (project in file("adb-component-documen
     libraryDependencies ++= Seq(
       "com.thoughtworks.binding" %%% "dom" % "11.6.0",
       "com.thoughtworks.binding" %%% "futurebinding" % "11.6.0",
+      "com.thoughtworks.binding" %%% "bindable" % "1.0.1",
       "com.beachape" %%% "enumeratum" % "1.5.13"
     )
   )

@@ -11,6 +11,7 @@ import adb.component.pagination.PaginationDocument
 import adb.component.switch.SwitchDocument
 import adb.component.table.TableDocument
 import adb.component.tabs.TabsDocument
+import adb.component.tag.TagDocument
 import adb.util.{BindingUtil, HtmlUtil}
 import adb.web.document.page.AntDesignBinding
 import com.thoughtworks.binding.{dom, Binding}
@@ -87,7 +88,8 @@ object Frame {
       "Pagination" -> PaginationDocument.page,
       "Switch" -> SwitchDocument.page,
       "Table" -> TableDocument.page,
-      "Tabs" -> TabsDocument.page
+      "Tabs" -> TabsDocument.page,
+      "Tag" -> TagDocument.page
     )
     val ni = for {
       (k, v) <- Constants(pages: _*)

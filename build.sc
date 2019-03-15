@@ -12,7 +12,10 @@ trait CommonScalaJsModule extends SbtLayoutScalaJSModule {
   override def scalacOptions = Seq("-deprecation", "-feature")
   override def scalacPluginIvyDeps = T {
     super.scalacPluginIvyDeps() ++
-    Seq(ivy"org.scalamacros:::paradise:2.1.1")
+    Seq(
+      ivy"org.scalamacros:::paradise:2.1.1",
+      ivy"org.spire-math::kind-projector:0.9.9"
+    )
   }
 }
 
@@ -35,6 +38,7 @@ object `adb-component-document-util` extends CommonScalaJsModule with AdbPublish
   override def ivyDeps = Agg(
     ivy"com.thoughtworks.binding::dom::11.6.0",
     ivy"com.thoughtworks.binding::futurebinding::11.6.0",
+    ivy"com.thoughtworks.binding::bindable::1.0.1",
     ivy"com.beachape::enumeratum::1.5.13"
   )
 }
