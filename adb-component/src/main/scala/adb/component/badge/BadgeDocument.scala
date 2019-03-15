@@ -22,15 +22,15 @@ object BadgeDocument {
       {badge(BadgeStatus.Processing).bind}
       {badge(BadgeStatus.Warning).bind}
       <br/>
-      {badge(BadgeStatus.Success).bind}
+      {badge(BadgeStatus.Success, "Success").bind}
       <br/>
-      {badge(BadgeStatus.Error).bind}
+      {badge(BadgeStatus.Error, "Error").bind}
       <br/>
-      {badge(BadgeStatus.Default).bind}
+      {badge(BadgeStatus.Default, "Default").bind}
       <br/>
-      {badge(BadgeStatus.Processing).bind}
+      {badge(BadgeStatus.Processing, "Processing").bind}
       <br/>
-      {badge(BadgeStatus.Warning).bind}
+      {badge(BadgeStatus.Warning, "Warning").bind}
     </div>
     // DEMO CODE
   }

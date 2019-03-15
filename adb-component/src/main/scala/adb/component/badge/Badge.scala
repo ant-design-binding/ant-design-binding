@@ -35,12 +35,7 @@ object Badge {
 
   @dom
   def badge(status: BadgeStatus, text: String = ""): Binding[Node] = {
-    <span class="ant-badge ant-badge-status ant-badge-not-a-wrapper">
-      <span class="ant-badge-status-dot ant-badge-status-processing"></span>
-      <span class="ant-badge-status-text">
-        {text}
-      </span>
-    </span>
+    <span class="ant-badge ant-badge-status ant-badge-not-a-wrapper"><span class={"ant-badge-status-dot " + status.statusClass}></span><span class="ant-badge-status-text">{text}</span></span>
   }
 
 }
